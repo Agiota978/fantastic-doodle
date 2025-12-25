@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para o meu amor 🤍</title>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Cinzel:wght@500&display=swap" rel="stylesheet">
+<style>
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Special Elite', cursive;
+  background: linear-gradient(-45deg,#0f0c29,#302b63,#24243e,#0f0c29);
+  background-size: 400% 400%;
+  animation: gradiente 15s ease infinite;
+  color: #f5f5f5;
+  overflow-x: hidden;
+}
+@keyframes gradiente {
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+.container {
+  background: rgba(0,0,0,0.6);
+  margin: 40px auto 120px;
+  padding: 24px;
+  width: 92%;
+  max-width: 420px;
+  border-radius: 28px;
+  text-align: center;
+  box-shadow: 0 0 45px rgba(255,255,255,0.2);
+  position: relative;
+  z-index: 2;
+}
+
+h1 { font-family: 'Cinzel', serif; letter-spacing: 2px; }
+.sub { font-size: 13px; opacity: .75; margin-bottom: 12px; }
+
+/* POLAROID */
+.polaroid {
+  width: 65%;
+  margin: 20px auto;
+  background: #fff;
+  padding: 10px 10px 28px;
+  box-shadow: 0 14px 30px rgba(0,0,0,.35);
+  opacity: 0;
+  transform: translateY(-30px) rotate(-2deg);
+  animation: entrada 2s forwards, flutuar 4s ease-in-out infinite alternate;
+}
+.polaroid img { width: 100%; border-radius: 4px; }
+@keyframes entrada { to { opacity: 1; transform: translateY(0) rotate(0deg); } }
+@keyframes flutuar {
+  0% { transform: translateY(-20px) rotate(-2deg);}
+  50% { transform: translateY(-26px) rotate(2deg);}
+  100% { transform: translateY(-20px) rotate(-2deg);}
+}
+
+/* FRASES COM EFEITO DE DIGITAÇÃO SUAVE */
+.frase {
+  display: none;
+  margin: 14px 0;
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: 0;
+}
+
+/* ASSINATURA */
+.assinatura {
+  display: none;
+  margin-top: 22px;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid currentColor;
+  width: 0;
+  animation: escrever 4s steps(40) forwards;
+}
+@keyframes escrever { to { width: 100%; } }
+
+/* BOTÃO DISCRETO */
+.botao-discreto {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 20px;
+  background: #000;
+  color: #fff;
+  opacity: 0.6;
+  cursor: pointer;
+  z-index: 200;
+}
+#btnMusica { bottom: 10px; right: 10px; position: fixed; }
+
+#felizNatal {
+  display: none;
+  font-size: 24px;
+  margin-top: 20px;
+  font-family: 'Cinzel', serif;
+  color: #ffde59;
+  text-shadow: 2px 2px 8px #000;
+}
+
+/* CITACOES DISTRIBUIDAS */
+.citacoes {
+  margin-top: 10px;
+  font-size: 14px;
+  font-style: italic;
+  opacity: 0;
+}
+.citacoes p { margin-bottom: 12px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>minha princesinha 🤍</h1>
+  <div class="sub">Algumas pessoas não chegam — elas acontecem</div>
+
+  <!-- PRIMEIRA POLAROID -->
+  <div class="polaroid" id="polaroidInicio">
+    <img src="foto.jpg" alt="Foto inicial">
+  </div>
+
+  <div class="citacoes" id="citacao1">
+    <p>"O amor não consiste em olhar um para o outro, mas sim em olhar juntos na mesma direção." – Antoine de Saint-Exupéry</p>
+  </div>
+
+  <p class="frase">Tem sentimentos que não pedem explicação.</p>
+  <p class="frase">Eles só existem… e transformam.</p>
+  <p class="frase">"A medida do amor é amar".-Santo Agostinho</p>
+
+  <!-- SEGUNDA POLAROID -->
+  <div class="polaroid" id="polaroidSegunda">
+    <img src="foto2.jpg" alt="Segunda foto">
+  </div>
+
+  <div class="citacoes" id="citacao2">
+    <p>"Amar é encontrar na felicidade do outro a própria felicidade." – Gottfried Leibniz</p>
+  </div>
+  <p class="frase">Cada momento com você é único e memorável.</p>
+  <p class="frase">A vida se torna mais bela com seu sorriso.</p>
+
+  <div class="citacoes" id="citacao3">
+    <p>"O amor é a poesia dos sentidos." – Honoré de Balzac</p>
+  </div>
+
+  <p class="frase">As pequenas coisas que compartilhamos têm valor infinito.</p>
+  <p class="frase">Paola, você é simplesmente extraordinária.</p>
+
+  <!-- ASSINATURA -->
+  <div class="assinatura" id="assinatura">— Com carinho, Pedro H Lemos</div>
+
+  <!-- FELIZ NATAL -->
+  <div id="felizNatal">🎄 Feliz Natal! 🎄</div>
+
+  <audio id="musica" src="musica.mp3"></audio>
+</div>
+
+<!-- BOTÃO DE MÚSICA -->
+<button class="botao-discreto" id="btnMusica">Aperte-me 🎶</button>
+
+<script>
+const frases = document.querySelectorAll('.frase');
+const musica = document.getElementById('musica');
+const citacoes = [document.getElementById('citacao1'), document.getElementById('citacao2'), document.getElementById('citacao3')];
+
+// Função para digitar o texto suavemente
+function digitarTexto(elemento) {
+  const texto = elemento.textContent;
+  elemento.textContent = '';
+  elemento.style.display = 'block';
+  elemento.style.opacity = '1';
+  let i = 0;
+  const interval = setInterval(() => {
+    if (i < texto.length) {
+      elemento.textContent += texto[i];
+      i++;
+    } else {
+      clearInterval(interval);
+    }
+  }, 50);
+}
+
+// Mostrar frases e citações com digitação suave
+function mostrarFrases(){
+  // Frases
+  frases.forEach((frase, index) => {
+    setTimeout(()=>{ digitarTexto(frase); }, index*4000); 
+  });
+
+  // Citações distribuídas
+  setTimeout(()=>{ digitarTexto(citacoes[0].querySelector('p')); }, 1500);
+  setTimeout(()=>{ digitarTexto(citacoes[1].querySelector('p')); }, 12000);
+  setTimeout(()=>{ digitarTexto(citacoes[2].querySelector('p')); }, 20000);
+
+  // Mostrar assinatura após todas as frases
+  setTimeout(()=>{
+    const assinatura = document.getElementById('assinatura');
+    assinatura.style.display='block';
+    setTimeout(()=>{
+      document.getElementById('felizNatal').style.display='block';
+    }, 1500);
+  }, frases.length*4000 + 500);
+}
+
+window.onload = () => { mostrarFrases(); };
+
+// BOTÃO DE MÚSICA
+document.getElementById('btnMusica').onclick = () => {
+  musica.play();
+  document.getElementById('btnMusica').style.display = 'none';
+  musica.onended = () => { document.getElementById('btnMusica').style.display = 'inline-block'; };
+};
+</script>
+</body>
+</html>
